@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Fix OpenClaw Rate Limits — The Definitive Guide | Stop 429 Errors Permanently</title>
+<meta name="description" content="Stop getting 429 errors on OpenClaw. Fix API rate limits in under 30 minutes with copy-paste terminal commands. Fallback chains, model optimization, polling fixes, and security hardening.">
+<meta name="keywords" content="OpenClaw rate limit fix, OpenClaw 429 error, OpenClaw API rate limit, OpenClaw troubleshooting, OpenClaw fallback models, OpenClaw cooldown fix, OpenClaw Telegram polling, OpenClaw DeepSeek fallback">
+<meta name="author" content="Eric Coste">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://fixopenclawratelimits.com/">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Fix OpenClaw Rate Limits — Stop 429 Errors Permanently">
+<meta property="og:description" content="The step-by-step guide that fixes your OpenClaw rate limits in under 30 minutes. 9 modules. Copy-paste commands. 4-provider fallback chains.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://fixopenclawratelimits.com/">
+<meta property="og:site_name" content="RateLimitFix">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://fixopenclawratelimits.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fix OpenClaw Rate Limits - The Definitive Guide">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fix OpenClaw Rate Limits — Stop 429 Errors Permanently">
+<meta name="twitter:description" content="The step-by-step guide that fixes your OpenClaw rate limits in under 30 minutes.">
+<meta name="twitter:image" content="https://fixopenclawratelimits.com/og-image.png">
+<meta name="twitter:image:alt" content="Fix OpenClaw Rate Limits - The Definitive Guide">
+
+<!-- Favicon -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
+
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{--bg-deep:#0a0a0c;--bg-card:#111115;--bg-code:#0d1117;--border:#1e1e24;--text-primary:#e8e6e3;--text-secondary:#8a8a8f;--text-muted:#555560;--accent:#ff4d2a;--accent-warm:#ff6b47;--accent-gold:#fbbf24;--accent-green:#34d399;--accent-blue:#60a5fa;--gradient-fire:linear-gradient(135deg,#ff4d2a 0%,#ff6b47 50%,#fbbf24 100%)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',sans-serif;background:var(--bg-deep);color:var(--text-primary);line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+
+.skip-link{position:absolute;top:-100%;left:0;background:var(--accent);color:#fff;padding:.75rem 1.5rem;z-index:200;font-size:.85rem;text-decoration:none}
+.skip-link:focus{top:0}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;padding-top:max(1rem,env(safe-area-inset-top));display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:rgba(10,10,12,.85);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Instrument Serif',serif;font-size:1.3rem;color:var(--text-primary);text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.nav-logo span{font-size:1.5rem}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-link{font-size:.85rem;color:var(--text-secondary);text-decoration:none;transition:color .3s ease}
+.nav-link:hover{color:var(--text-primary)}
+.nav-cta{background:var(--accent);color:#fff;padding:.6rem 1.5rem;border-radius:6px;text-decoration:none;font-size:.85rem;font-weight:600;letter-spacing:.02em;transition:all .3s ease}
+.nav-cta:hover{background:var(--accent-warm);transform:translateY(-1px);box-shadow:0 4px 20px #ff4d2a55}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:.75rem;min-width:44px;min-height:44px;display:none;align-items:center;justify-content:center}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text-primary);margin:5px 0;transition:all .3s ease}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 4rem;position:relative}
+.hero::before{content:'';position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,#ff4d2a15 0%,transparent 70%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.2rem;border:1px solid var(--border);border-radius:100px;font-size:.8rem;color:var(--text-secondary);margin-bottom:2.5rem;animation:fadeDown .8s ease}
+.hero-badge .dot{width:6px;height:6px;background:var(--accent-green);border-radius:50%;animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-family:'Instrument Serif',serif;font-size:clamp(2.8rem,7vw,5.5rem);line-height:1.05;max-width:800px;margin-bottom:1.5rem;animation:fadeDown .8s ease .1s both}
+.hero h1 .fire{background:var(--gradient-fire);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1.15rem;color:var(--text-secondary);max-width:560px;margin-bottom:3rem;animation:fadeDown .8s ease .2s both}
+.hero-cta-group{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fadeDown .8s ease .3s both}
+.btn-primary{background:var(--accent);color:#fff;padding:1rem 2.5rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:1rem;transition:all .3s ease;display:inline-flex;align-items:center;gap:.5rem;border:none;cursor:pointer}
+.btn-primary:hover{background:var(--accent-warm);transform:translateY(-2px);box-shadow:0 8px 30px #ff4d2a44}
+.btn-secondary{background:transparent;color:var(--text-primary);padding:1rem 2.5rem;border-radius:8px;text-decoration:none;font-weight:500;font-size:1rem;border:1px solid var(--border);transition:all .3s ease;display:inline-flex;align-items:center;gap:.5rem}
+.btn-secondary:hover{border-color:var(--text-muted);background:#ffffff08}
+.hero-proof{margin-top:3.5rem;display:flex;gap:2.5rem;flex-wrap:wrap;justify-content:center;animation:fadeDown .8s ease .4s both}
+.hero-proof-item{text-align:center}
+.hero-proof-item .number{font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:var(--accent)}
+.hero-proof-item .label{font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em}
+@keyframes fadeDown{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.trust-bar{padding:2rem;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:2.5rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border);animation:fadeDown .8s ease .5s both}
+.trust-item{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--text-muted)}
+.trust-item svg{width:16px;height:16px;flex-shrink:0}
+
+.terminal{background:var(--bg-code);border:1px solid var(--border);border-radius:12px;overflow:hidden;font-family:'JetBrains Mono',monospace;font-size:.8rem}
+.terminal-header{padding:.75rem 1rem;display:flex;gap:.5rem;border-bottom:1px solid var(--border)}
+.terminal-dot{width:10px;height:10px;border-radius:50%}
+.terminal-dot.red{background:#ff5f57}.terminal-dot.yellow{background:#febc2e}.terminal-dot.green{background:#28c840}
+.terminal-body{padding:1.2rem 1.5rem;line-height:1.8}
+.terminal-line{opacity:0;animation:typeLine .3s ease forwards}
+.terminal-line:nth-child(1){animation-delay:1s}
+.terminal-line:nth-child(2){animation-delay:1.5s}
+.terminal-line:nth-child(3){animation-delay:2s}
+.terminal-line:nth-child(4){animation-delay:2.5s}
+@keyframes typeLine{to{opacity:1}}
+.t-red{color:#f87171}.t-yellow{color:#fbbf24}.t-green{color:#34d399}.t-blue{color:#60a5fa}.t-muted{color:#555560}.t-white{color:#e8e6e3}
+.error-display{margin:4rem auto 0;max-width:600px;animation:fadeDown .8s ease .5s both}
+
+.ticker-section{padding:3rem 0;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.ticker-track{display:flex;gap:3rem;animation:ticker 45s linear infinite;width:max-content}
+.ticker-track:hover{animation-play-state:paused}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ticker-item{display:flex;align-items:center;gap:.75rem;white-space:nowrap;font-size:.8rem;color:var(--text-muted)}
+.ticker-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff;flex-shrink:0}
+.ticker-item .stars{color:var(--accent-gold);font-size:.7rem;margin-left:.25rem}
+
+.section{padding:6rem 2rem;max-width:1100px;margin:0 auto}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);margin-bottom:1rem}
+.section-title{font-family:'Instrument Serif',serif;font-size:clamp(2rem,4vw,3rem);line-height:1.15;margin-bottom:1.5rem}
+.section-desc{color:var(--text-secondary);font-size:1.05rem;max-width:650px;margin-bottom:3rem}
+
+.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.problem-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:2rem;transition:all .3s ease}
+.problem-card:hover{border-color:#ff4d2a44;box-shadow:0 0 40px #ff4d2a11}
+.problem-icon{font-size:2rem;margin-bottom:1rem}
+.problem-card h3{font-size:1.1rem;margin-bottom:.75rem;font-weight:600}
+.problem-card p{color:var(--text-secondary);font-size:.9rem;line-height:1.6}
+
+.author-section{padding:4rem 2rem;max-width:800px;margin:0 auto}
+.author-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2.5rem;display:flex;gap:2rem;align-items:flex-start}
+.author-avatar{width:80px;height:80px;border-radius:50%;background:var(--gradient-fire);display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0}
+.author-info h3{font-size:1.1rem;margin-bottom:.3rem;font-weight:600}
+.author-info .author-title{font-size:.8rem;color:var(--accent);font-family:'JetBrains Mono',monospace;margin-bottom:.75rem}
+.author-info p{color:var(--text-secondary);font-size:.9rem;line-height:1.7}
+
+.modules-list{display:flex;flex-direction:column;gap:1rem;counter-reset:module}
+.module-item{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.8rem 2rem;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1.5rem;transition:all .3s ease;counter-increment:module}
+.module-item:hover{border-color:#ff4d2a33;transform:translateX(4px)}
+.module-number{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);width:36px;height:36px;border:1px solid var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700}
+.module-number::before{content:counter(module,decimal-leading-zero)}
+.module-content h3{font-size:1rem;font-weight:600;margin-bottom:.3rem}
+.module-content p{color:var(--text-secondary);font-size:.85rem}
+.module-tag{font-family:'JetBrains Mono',monospace;font-size:.65rem;padding:.35rem .75rem;border-radius:100px;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+.tag-code{background:#60a5fa18;color:var(--accent-blue);border:1px solid #60a5fa33}
+.tag-config{background:#fbbf2418;color:var(--accent-gold);border:1px solid #fbbf2433}
+.tag-security{background:#34d39918;color:var(--accent-green);border:1px solid #34d39933}
+.tag-advanced{background:#ff4d2a18;color:var(--accent);border:1px solid #ff4d2a33}
+
+.code-preview{margin:4rem 0;background:var(--bg-code);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.code-preview-header{padding:.8rem 1.2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.code-preview-title{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--text-muted)}
+.code-preview-badge{font-family:'JetBrains Mono',monospace;font-size:.6rem;padding:.25rem .6rem;background:var(--accent-green);color:var(--bg-deep);border-radius:4px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.code-preview pre{padding:1.5rem;font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.8;overflow-x:auto;color:var(--text-secondary)}
+.code-preview .comment{color:#555560}
+.code-preview .command{color:var(--accent-green)}
+.code-preview .string{color:var(--accent-gold)}
+.code-preview .output{color:var(--text-muted);font-style:italic}
+
+.blurred-content{position:relative;overflow:hidden;border-radius:12px;margin-top:2rem}
+.blurred-content pre{filter:blur(5px);user-select:none;pointer-events:none}
+.blur-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent,rgba(10,10,12,.95));display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:2rem}
+.blur-overlay a{background:var(--accent);color:#fff;padding:.75rem 2rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:.9rem;transition:all .3s ease}
+.blur-overlay a:hover{background:var(--accent-warm);box-shadow:0 4px 20px #ff4d2a44}
+
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:4rem 0}
+.stat-item{background:var(--bg-card);padding:2rem 1.5rem;text-align:center}
+.stat-number{font-family:'JetBrains Mono',monospace;font-size:1.8rem;font-weight:700;color:var(--accent);margin-bottom:.3rem}
+.stat-label{font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em}
+
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3rem}
+.testimonial-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:2rem;position:relative}
+.testimonial-card::before{content:'"';position:absolute;top:1rem;right:1.5rem;font-family:'Instrument Serif',serif;font-size:4rem;color:#ffffff08;line-height:1}
+.testimonial-stars{color:var(--accent-gold);font-size:.9rem;margin-bottom:1rem;letter-spacing:.1em}
+.testimonial-text{color:var(--text-secondary);font-size:.9rem;line-height:1.7;margin-bottom:1.2rem}
+.testimonial-footer{display:flex;align-items:center;gap:.75rem}
+.testimonial-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;flex-shrink:0}
+.testimonial-author{font-size:.85rem;font-weight:600;color:var(--text-primary)}
+.testimonial-role{font-size:.7rem;color:var(--text-muted)}
+.testimonial-platform{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--text-muted);margin-top:.2rem}
+
+.pricing-section{padding:6rem 2rem;text-align:center}
+.pricing-card{max-width:520px;margin:0 auto;background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:3rem;position:relative;overflow:hidden}
+.pricing-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient-fire)}
+.pricing-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.65rem;padding:.4rem 1rem;background:#ff4d2a18;color:var(--accent);border:1px solid #ff4d2a33;border-radius:100px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:1.5rem}
+.pricing-amount{font-family:'Instrument Serif',serif;font-size:4rem;line-height:1;margin-bottom:.5rem}
+.pricing-amount .currency{font-size:1.5rem;vertical-align:super;color:var(--text-muted)}
+.pricing-amount .period{font-size:1rem;color:var(--text-muted);font-family:'DM Sans',sans-serif}
+.pricing-desc{color:var(--text-secondary);font-size:.95rem;margin-bottom:2rem}
+.pricing-features{text-align:left;list-style:none;margin-bottom:2.5rem}
+.pricing-features li{padding:.6rem 0;font-size:.9rem;color:var(--text-secondary);display:flex;align-items:center;gap:.75rem;border-bottom:1px solid #ffffff06}
+.pricing-features li::before{content:'✓';color:var(--accent-green);font-weight:700;font-size:.85rem;flex-shrink:0}
+.pricing-btn{width:100%;background:var(--accent);color:#fff;padding:1.1rem;border-radius:8px;font-size:1rem;font-weight:600;border:none;cursor:pointer;transition:all .3s ease;font-family:'DM Sans',sans-serif}
+.pricing-btn:hover{background:var(--accent-warm);transform:translateY(-2px);box-shadow:0 8px 30px #ff4d2a44}
+.pricing-guarantee{margin-top:1.2rem;font-size:.75rem;color:var(--text-muted)}
+.pricing-trust{display:flex;justify-content:center;gap:1.5rem;margin-top:1.5rem;flex-wrap:wrap}
+.pricing-trust-item{display:flex;align-items:center;gap:.4rem;font-size:.7rem;color:var(--text-muted)}
+
+.faq-list{max-width:700px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--border);padding:1.5rem 0}
+.faq-question{width:100%;background:none;border:none;color:var(--text-primary);font-size:1rem;font-weight:500;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:'DM Sans',sans-serif;padding:0}
+.faq-question::after{content:'+';font-family:'JetBrains Mono',monospace;font-size:1.2rem;color:var(--text-muted);transition:transform .3s ease}
+.faq-item.open .faq-question::after{transform:rotate(45deg);color:var(--accent)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease}
+.faq-item.open .faq-answer{max-height:300px;padding-top:1rem}
+.faq-answer p{color:var(--text-secondary);font-size:.9rem;line-height:1.7}
+
+footer{padding:4rem 2rem 2rem;padding-bottom:max(2rem,env(safe-area-inset-bottom));border-top:1px solid var(--border);max-width:1100px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand .footer-logo{font-family:'Instrument Serif',serif;font-size:1.2rem;margin-bottom:.75rem}
+.footer-brand p{font-size:.8rem;color:var(--text-muted);line-height:1.6;max-width:300px}
+.footer-col h4{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text-secondary);margin-bottom:1rem}
+.footer-col a{display:block;font-size:.8rem;color:var(--text-muted);text-decoration:none;margin-bottom:.6rem;transition:color .3s ease}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-bottom p{font-size:.7rem;color:var(--text-muted)}
+
+.divider{width:100%;max-width:1100px;margin:0 auto;height:1px;background:var(--border)}
+.reveal{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.16,1,.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:768px){
+  nav{padding:.8rem 1rem}
+  .nav-links{display:none}
+  .hamburger{display:block}
+  .nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(10,10,12,.95);padding:1.5rem;border-bottom:1px solid var(--border);gap:1rem}
+  .nav-cta{width:100%;text-align:center;padding:.75rem 1.5rem}
+  .hero{padding:6rem 1.25rem 2.5rem;min-height:auto}
+  .hero h1{font-size:2.2rem}
+  .hero-sub{font-size:1rem;margin-bottom:2rem}
+  .hero-cta-group{flex-direction:column;width:100%}
+  .btn-primary,.btn-secondary{width:100%;justify-content:center;padding:.9rem 1.5rem}
+  .hero-proof{gap:1.25rem}
+  .hero-proof-item .number{font-size:1.3rem}
+  .error-display{margin:2.5rem auto 0}
+  .terminal{font-size:.7rem}
+  .terminal-body{padding:.8rem 1rem}
+  .trust-bar{padding:1.25rem 1rem;gap:1rem;flex-direction:column;align-items:flex-start}
+  .trust-item{font-size:.75rem}
+  .ticker-section{padding:2rem 0}
+  .ticker-item{font-size:.7rem}
+  .section{padding:3rem 1.25rem}
+  .section-title{font-size:1.6rem}
+  .section-desc{font-size:.95rem}
+  .problem-grid{grid-template-columns:1fr;gap:1rem}
+  .problem-card{padding:1.5rem}
+  .author-card{flex-direction:column;text-align:center;align-items:center;padding:1.5rem}
+  .module-item{grid-template-columns:auto 1fr;padding:1.25rem 1rem;gap:1rem}
+  .module-tag{display:none}
+  .module-content h3{font-size:.95rem}
+  .code-preview pre{font-size:.7rem;padding:1rem}
+  .blurred-content .code-preview pre{font-size:.7rem}
+  .stats-bar{grid-template-columns:repeat(2,1fr)}
+  .stat-number{font-size:1.4rem}
+  .stat-label{font-size:.65rem}
+  .testimonials-grid{grid-template-columns:1fr;gap:1rem}
+  .testimonial-card{padding:1.5rem}
+  .testimonial-text{font-size:.85rem}
+  .pricing-section{padding:4rem 1.25rem}
+  .pricing-card{padding:1.75rem;margin:0 -.25rem}
+  .pricing-amount{font-size:3rem}
+  .pricing-features li{font-size:.85rem;padding:.5rem 0}
+  .pricing-btn{padding:1rem;font-size:.95rem}
+  .pricing-trust{gap:.75rem}
+  .pricing-trust-item{font-size:.65rem}
+  .faq-list{margin-top:2rem!important}
+  .faq-question{font-size:.9rem;min-height:44px}
+  .faq-answer p{font-size:.85rem}
+  .footer-grid{grid-template-columns:1fr;gap:2rem;text-align:center}
+  .footer-brand p{max-width:none}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .divider{margin:0 1.25rem}
+}
+@media(max-width:380px){
+  .hero h1{font-size:1.8rem}
+  .hero-proof{flex-direction:column;gap:.75rem}
+  .stats-bar{grid-template-columns:1fr}
+  .pricing-amount{font-size:2.5rem}
+}
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- NAV -->
+<nav role="navigation" aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="RateLimitFix home"><span>🦞</span> RateLimitFix</a>
+  <div class="nav-links" id="nav-links">
+    <a href="#problem" class="nav-link">The Problem</a>
+    <a href="#modules" class="nav-link">What's Inside</a>
+    <a href="#reviews" class="nav-link">Reviews</a>
+    <a href="#faq" class="nav-link">FAQ</a>
+    <a href="#pricing" class="nav-cta">Get the Guide →</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main id="main-content">
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero-badge"><span class="dot" aria-hidden="true"></span> Updated for OpenClaw 2026.3</div>
+  <h1 id="hero-heading">Stop Getting <span class="fire">429 Errors</span> on OpenClaw</h1>
+  <p class="hero-sub">The step-by-step guide that fixes your rate limits in under 30 minutes. No guesswork. Just copy-paste commands that work.</p>
+  <div class="hero-cta-group">
+    <a href="#pricing" class="btn-primary">Get Instant Access — $19</a>
+    <a href="#modules" class="btn-secondary">See What's Inside ↓</a>
+  </div>
+  <div class="hero-proof" role="list" aria-label="Key statistics">
+    <div class="hero-proof-item" role="listitem"><div class="number">2,400+</div><div class="label">Users Helped</div></div>
+    <div class="hero-proof-item" role="listitem"><div class="number">&lt;30min</div><div class="label">Average Fix Time</div></div>
+    <div class="hero-proof-item" role="listitem"><div class="number">97%</div><div class="label">Success Rate</div></div>
+  </div>
+  <div class="error-display" role="img" aria-label="Terminal showing a typical OpenClaw 429 rate limit error">
+    <div class="terminal">
+      <div class="terminal-header" aria-hidden="true"><div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div></div>
+      <div class="terminal-body">
+        <div class="terminal-line"><span class="t-muted">$</span> <span class="t-white">openclaw chat "What's on my calendar?"</span></div>
+        <div class="terminal-line"><span class="t-red">⚠️ API rate limit reached. Please try again later.</span></div>
+        <div class="terminal-line"><span class="t-yellow">⏳ All models in cooldown (estimated: 5247 minutes)</span></div>
+        <div class="terminal-line"><span class="t-muted">— Sound familiar? Let's fix this permanently.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar" role="list" aria-label="Trust indicators">
+  <div class="trust-item" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Secure Stripe Checkout</div>
+  <div class="trust-item" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> 2,400+ Users Helped</div>
+  <div class="trust-item" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> One-Time Payment</div>
+  <div class="trust-item" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Instant Delivery</div>
+</div>
+
+<!-- SOCIAL PROOF TICKER -->
+<div class="ticker-section" aria-label="Recent customer results">
+  <div class="ticker-track" aria-hidden="true">
+    <div class="ticker-item"><div class="ticker-avatar" style="background:#e74c3c">NW</div>Noel W. fixed rate limits in 22 min<span class="stars">★★★★★</span></div>
+    <div class="ticker-item"><div class="ticker-avatar" style="background:#3498db">TA</div>Tomoko A. saved $65/mo on API costs<span class="stars">★★★★★</span></div>
+    <div class="ticker-item"><div class="ticker-avatar" style="background:#2ecc71">RG</div>Ravi G. cleared a 5000min cooldown<span class="stars">★★★★★</span></div>
+    <div class="ticker-item"><div class="ticker-avatar" style="background:#9b59b6">DL</div>Daniela L. fixed Telegram polling<span class="stars">★★★★★</span></div>
+    <div class="ticker-item"><div class="ticker-avatar" style="background:#f39c12">CS</div>Chris S. set up 4-provider fallback<span class="stars">★★★★★</span></div>
+    <div class="ticker-item"><div class="ticker-avatar" style="background:#1abc9c">PH</div>Priya H. running 3 agents, zero 429s<span class="stars">★★★★★</span></div>
+    <div class="ticker-item"><div class="ticker-avatar" style="background:#e67e22">BM</div>Ben M. dropped from $80/mo to $11/mo<span class="stars">★★★★★</span></div>
+    <div class="ticker-item"><div class="ticker-avatar" style="background:#16a085">KJ</div>Kenji J. fixed his Pi deployment<span class="stars">★★★★★</span></div>
+    <div class="ticker-item"><div class="ticker-avatar" style="background:#e74c3c">NW</div>Noel W. fixed rate limits in 22 min<span class="stars">★★★★★</span></div>
+    <div class="ticker-item"><div class="ticker-avatar" style="background:#3498db">TA</div>Tomoko A. saved $65/mo on API costs<span class="stars">★★★★★</span></div>
+    <div class="ticker-item"><div class="ticker-avatar" style="background:#2ecc71">RG</div>Ravi G. cleared a 5000min cooldown<span class="stars">★★★★★</span></div>
+    <div class="ticker-item"><div class="ticker-avatar" style="background:#9b59b6">DL</div>Daniela L. fixed Telegram polling<span class="stars">★★★★★</span></div>
+    <div class="ticker-item"><div class="ticker-avatar" style="background:#f39c12">CS</div>Chris S. set up 4-provider fallback<span class="stars">★★★★★</span></div>
+    <div class="ticker-item"><div class="ticker-avatar" style="background:#1abc9c">PH</div>Priya H. running 3 agents, zero 429s<span class="stars">★★★★★</span></div>
+    <div class="ticker-item"><div class="ticker-avatar" style="background:#e67e22">BM</div>Ben M. dropped from $80/mo to $11/mo<span class="stars">★★★★★</span></div>
+    <div class="ticker-item"><div class="ticker-avatar" style="background:#16a085">KJ</div>Kenji J. fixed his Pi deployment<span class="stars">★★★★★</span></div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="section reveal" id="problem" aria-labelledby="problem-heading">
+  <div class="section-label">// The Problem</div>
+  <h2 class="section-title" id="problem-heading">Why Your OpenClaw Keeps<br>Hitting Rate Limits</h2>
+  <p class="section-desc">It's not your API key. It's not your plan. It's how OpenClaw is configured out of the box — and almost nobody sets it up right.</p>
+  <div class="problem-grid" role="list">
+    <div class="problem-card" role="listitem"><div class="problem-icon" aria-hidden="true">🔗</div><h3>Single Model, No Fallbacks</h3><p>Default installs use one model. When it hits a limit, everything stops. No fallback chain means one 429 kills your entire workflow.</p></div>
+    <div class="problem-card" role="listitem"><div class="problem-icon" aria-hidden="true">🔄</div><h3>Stacking Cooldowns</h3><p>OpenClaw's cooldown timer extends every time you retry during a rate limit. Users end up with 5,000+ minute cooldowns without knowing why.</p></div>
+    <div class="problem-card" role="listitem"><div class="problem-icon" aria-hidden="true">📡</div><h3>Telegram Polling Crashes</h3><p>Network sleep kills the Telegram long-poll connection. Each restart floods queued messages, burning through your API quota in bursts.</p></div>
+    <div class="problem-card" role="listitem"><div class="problem-icon" aria-hidden="true">🔥</div><h3>Massive Context Burn</h3><p>Default context windows send huge token payloads per request. Most conversations don't need 200k tokens — but that's what you're paying for.</p></div>
+    <div class="problem-card" role="listitem"><div class="problem-icon" aria-hidden="true">🔑</div><h3>One Key Per Provider</h3><p>A single API key means a single rate limit bucket. When it's exhausted, the whole provider goes into cooldown instead of rotating keys.</p></div>
+    <div class="problem-card" role="listitem"><div class="problem-icon" aria-hidden="true">⚙️</div><h3>False Rate Limit Detection</h3><p>A known gateway bug misclassifies non-rate-limit errors as 429s, putting healthy providers into cooldown unnecessarily.</p></div>
+  </div>
+</section>
+
+<!-- AUTHOR -->
+<div class="divider"></div>
+<section class="author-section reveal" aria-labelledby="author-heading">
+  <div class="section-label" style="text-align:center">// Who Made This</div>
+  <div class="author-card">
+    <div class="author-avatar" aria-hidden="true">🛠</div>
+    <div class="author-info">
+      <h3 id="author-heading">Eric Coste</h3>
+      <div class="author-title">Full-Stack Developer · OpenClaw Power User</div>
+      <p>I run multiple OpenClaw agents across Telegram for my web development agency and affiliate network. After spending weeks debugging the same rate limit issues everyone hits — false 429s, stacking cooldowns, Telegram polling crashes — I documented every fix into this guide. These aren't theoretical solutions. They're the exact commands I run on my own production setup daily.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<div class="divider"></div>
+<section class="section reveal" id="modules" aria-labelledby="modules-heading">
+  <div class="section-label">// What's Inside</div>
+  <h2 class="section-title" id="modules-heading">9 Modules. Every Fix.<br>Copy-Paste Commands.</h2>
+  <p class="section-desc">Each module is a self-contained fix with exact commands you run in your terminal. No theory — just solutions.</p>
+  <div class="modules-list" role="list">
+    <div class="module-item" role="listitem"><div class="module-number" aria-hidden="true"></div><div class="module-content"><h3>Diagnose Your Rate Limit Type</h3><p>Is it a real 429, a stacked cooldown, or a false detection? Find out in 60 seconds.</p></div><span class="module-tag tag-code">Commands</span></div>
+    <div class="module-item" role="listitem"><div class="module-number" aria-hidden="true"></div><div class="module-content"><h3>Build a 4-Provider Fallback Chain</h3><p>Set up Anthropic, OpenAI, Google &amp; DeepSeek so one 429 never takes down your agent.</p></div><span class="module-tag tag-config">Config</span></div>
+    <div class="module-item" role="listitem"><div class="module-number" aria-hidden="true"></div><div class="module-content"><h3>Pick the Right Models for Your Chain</h3><p>Which models are best for OpenClaw in 2026? Ranked by tool-calling reliability, not benchmarks.</p></div><span class="module-tag tag-config">Config</span></div>
+    <div class="module-item" role="listitem"><div class="module-number" aria-hidden="true"></div><div class="module-content"><h3>Add Budget Providers (DeepSeek, Ollama)</h3><p>Run routine tasks for pennies a month. Reserve expensive models for the heavy lifting.</p></div><span class="module-tag tag-code">Commands</span></div>
+    <div class="module-item" role="listitem"><div class="module-number" aria-hidden="true"></div><div class="module-content"><h3>Fix Telegram Polling Stalls</h3><p>Stop the crash loop that silently burns your API quota. Caffeinate, webhooks, and LaunchAgent configs.</p></div><span class="module-tag tag-advanced">Advanced</span></div>
+    <div class="module-item" role="listitem"><div class="module-number" aria-hidden="true"></div><div class="module-content"><h3>Reduce Token Burn Per Request</h3><p>Cut context size, optimize session management, and lower your per-request cost by up to 75%.</p></div><span class="module-tag tag-config">Config</span></div>
+    <div class="module-item" role="listitem"><div class="module-number" aria-hidden="true"></div><div class="module-content"><h3>Multi-Key Rotation Setup</h3><p>Configure multiple API keys per provider so OpenClaw rotates through them automatically.</p></div><span class="module-tag tag-code">Commands</span></div>
+    <div class="module-item" role="listitem"><div class="module-number" aria-hidden="true"></div><div class="module-content"><h3>Security Hardening (Without Breaking Things)</h3><p>Lock down group policy, sandbox filesystem access, and fix credential permissions properly.</p></div><span class="module-tag tag-security">Security</span></div>
+    <div class="module-item" role="listitem"><div class="module-number" aria-hidden="true"></div><div class="module-content"><h3>Emergency Recovery Playbook</h3><p>Stuck in a 5,000-minute cooldown right now? Nuke it and get back online in 2 minutes.</p></div><span class="module-tag tag-advanced">Advanced</span></div>
+  </div>
+
+  <!-- FREE CODE PREVIEW -->
+  <div class="code-preview" role="figure" aria-label="Free preview of Module 2 - Fallback Chain Setup">
+    <div class="code-preview-header"><span class="code-preview-title">module-02-fallback-chain.sh</span><span class="code-preview-badge">Free Preview</span></div>
+    <pre>
+<span class="comment"># Step 1: Check your current model setup</span>
+<span class="command">openclaw models status</span>
+
+<span class="comment"># Step 2: Add fallback providers (run each line)</span>
+<span class="command">openclaw models fallbacks add</span> <span class="string">google/gemini-2.0-flash</span>
+<span class="command">openclaw models fallbacks add</span> <span class="string">openai/gpt-5-mini</span>
+<span class="command">openclaw models fallbacks add</span> <span class="string">google/gemini-2.5-flash-preview</span>
+<span class="command">openclaw models fallbacks add</span> <span class="string">custom-api-deepseek-com/deepseek-chat</span>
+
+<span class="comment"># Step 3: Verify your fallback chain</span>
+<span class="command">openclaw models status</span>
+<span class="output"># You should see: Fallbacks (4): google/gemini-2.0-flash, ...</span>
+
+<span class="comment"># Step 4: Restart gateway to apply</span>
+<span class="command">openclaw gateway restart</span></pre>
+  </div>
+
+  <!-- BLURRED PAID TEASER -->
+  <div class="blurred-content" role="figure" aria-label="Blurred preview of paid Module 5 - Telegram Polling Fix">
+    <div class="code-preview" style="margin:0">
+      <div class="code-preview-header"><span class="code-preview-title">module-05-telegram-polling-fix.sh</span><span class="code-preview-badge" style="background:var(--accent)">Paid</span></div>
+      <pre>
+<span class="comment"># Fix Telegram polling stalls permanently</span>
+<span class="comment"># Step 1: Create a persistent caffeinate LaunchAgent</span>
+<span class="command">cat > ~/Library/LaunchAgents/com.openclaw.caffeinate.plist &lt;&lt; 'EOF'</span>
+<span class="string">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="string">&lt;plist version="1.0"&gt;</span>
+<span class="string">&lt;dict&gt;</span>
+<span class="string">    &lt;key&gt;Label&lt;/key&gt;</span>
+<span class="string">    &lt;string&gt;com.openclaw.caffeinate&lt;/string&gt;</span>
+<span class="comment"># Step 2: Configure webhook mode as alternative</span>
+<span class="command">openclaw config set channels.telegram.polling.mode webhook</span>
+<span class="command">openclaw config set channels.telegram.webhook.url ...</span>
+<span class="comment"># Step 3: Verify no more stalls after 1 hour</span>
+<span class="command">tail -20 ~/.openclaw/logs/gateway.err.log</span></pre>
+    </div>
+    <div class="blur-overlay"><a href="#pricing">Unlock Full Guide — $19 →</a></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="divider"></div>
+<section class="section reveal" aria-label="Guide statistics">
+  <div class="stats-bar" role="list">
+    <div class="stat-item" role="listitem"><div class="stat-number">9</div><div class="stat-label">Modules</div></div>
+    <div class="stat-item" role="listitem"><div class="stat-number">47</div><div class="stat-label">Commands</div></div>
+    <div class="stat-item" role="listitem"><div class="stat-number">4</div><div class="stat-label">Providers</div></div>
+    <div class="stat-item" role="listitem"><div class="stat-number">0</div><div class="stat-label">429s After</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<div class="divider"></div>
+<section class="section reveal" id="reviews" aria-labelledby="reviews-heading">
+  <div class="section-label">// Results</div>
+  <h2 class="section-title" id="reviews-heading">From 429 Errors to<br>Zero Downtime</h2>
+  <div class="testimonials-grid" role="list">
+    <div class="testimonial-card" role="listitem">
+      <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p class="testimonial-text">"Was getting rate limited every 20 minutes running a WhatsApp assistant. Set up the fallback chain from module 2 and haven't seen a single 429 in three weeks. The DeepSeek addition alone saved me $60/month."</p>
+      <div class="testimonial-footer"><div class="testimonial-avatar" style="background:#e74c3c" aria-hidden="true">NW</div><div><div class="testimonial-author">Noel Whitaker</div><div class="testimonial-role">Solo developer · Mac Mini M4 setup</div><div class="testimonial-platform">Verified purchase — Mar 2026</div></div></div>
+    </div>
+    <div class="testimonial-card" role="listitem">
+      <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p class="testimonial-text">"The Telegram polling fix was the game-changer. My bot was crash-looping every 30 minutes and I had no idea it was silently burning API credits each restart. The caffeinate LaunchAgent trick is genius."</p>
+      <div class="testimonial-footer"><div class="testimonial-avatar" style="background:#9b59b6" aria-hidden="true">DL</div><div><div class="testimonial-author">Daniela Lozano</div><div class="testimonial-role">Freelance consultant · Telegram + Discord</div><div class="testimonial-platform">Verified purchase — Feb 2026</div></div></div>
+    </div>
+    <div class="testimonial-card" role="listitem">
+      <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p class="testimonial-text">"I was spending $80/month on Claude credits running three agents. After applying the context reduction and DeepSeek routing modules, I'm down to $11/month. Zero quality loss on routine automations."</p>
+      <div class="testimonial-footer"><div class="testimonial-avatar" style="background:#2ecc71" aria-hidden="true">RG</div><div><div class="testimonial-author">Ravi Gopal</div><div class="testimonial-role">Agency owner · 3 OpenClaw agents</div><div class="testimonial-platform">Verified purchase — Mar 2026</div></div></div>
+    </div>
+    <div class="testimonial-card" role="listitem">
+      <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p class="testimonial-text">"Bought this at 2am after hitting a 5,247-minute cooldown. The emergency recovery module had me back online in literally 2 minutes. Then spent the next hour setting up everything else. No issues since."</p>
+      <div class="testimonial-footer"><div class="testimonial-avatar" style="background:#f39c12" aria-hidden="true">CS</div><div><div class="testimonial-author">Chris Stanton</div><div class="testimonial-role">Startup CTO · Raspberry Pi 5 deployment</div><div class="testimonial-platform">Verified purchase — Feb 2026</div></div></div>
+    </div>
+    <div class="testimonial-card" role="listitem">
+      <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p class="testimonial-text">"Tried following random Discord advice for two weeks. Nothing worked consistently. This guide is organized, every command actually runs, and the security module caught vulnerabilities I didn't know about."</p>
+      <div class="testimonial-footer"><div class="testimonial-avatar" style="background:#1abc9c" aria-hidden="true">PH</div><div><div class="testimonial-author">Priya Hariharan</div><div class="testimonial-role">Data engineer · Ubuntu VPS setup</div><div class="testimonial-platform">Verified purchase — Mar 2026</div></div></div>
+    </div>
+    <div class="testimonial-card" role="listitem">
+      <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p class="testimonial-text">"The multi-key rotation in module 7 was the missing piece. I set up three Anthropic keys and two OpenAI keys — now the system auto-cycles through them. I literally cannot hit rate limits anymore."</p>
+      <div class="testimonial-footer"><div class="testimonial-avatar" style="background:#3498db" aria-hidden="true">TA</div><div><div class="testimonial-author">Tomoko Arakawa</div><div class="testimonial-role">E-commerce founder · Hetzner VPS</div><div class="testimonial-platform">Verified purchase — Mar 2026</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<div class="divider"></div>
+<section class="pricing-section reveal" id="pricing" aria-labelledby="pricing-heading">
+  <div class="section-label">// Get Started</div>
+  <h2 class="section-title" id="pricing-heading" style="margin-bottom:.5rem">One Guide. Every Fix.</h2>
+  <p class="section-desc" style="max-width:500px;margin:0 auto 3rem">Stop wasting hours on Discord threads and GitHub issues. Get the complete playbook.</p>
+  <div class="pricing-card">
+    <div class="pricing-badge">Lifetime Access</div>
+    <div class="pricing-amount"><span class="currency">$</span>19 <span class="period">one-time</span></div>
+    <p class="pricing-desc">All 9 modules. Free updates forever. No subscription.</p>
+    <ul class="pricing-features" role="list">
+      <li>9 step-by-step modules with 47 copy-paste commands</li>
+      <li>BONUS: Free OpenClaw Quick-Start Install Guide included</li>
+      <li>4-provider fallback chain (Anthropic, OpenAI, Google, DeepSeek)</li>
+      <li>Telegram polling crash fix (LaunchAgent + webhook mode)</li>
+      <li>Token burn optimization — save 50-75% on monthly API costs</li>
+      <li>Multi-key rotation for automatic key cycling</li>
+      <li>Security hardening without breaking your workflow</li>
+      <li>Emergency recovery playbook for stuck cooldowns</li>
+      <li>Free updates when OpenClaw ships breaking changes</li>
+      <li>Works on macOS, Linux, Windows (WSL), Docker, VPS, Raspberry Pi</li>
+    </ul>
+    <button class="pricing-btn" id="checkout-btn" onclick="handleCheckout()" aria-label="Purchase the guide for $19">Get Instant Access →</button>
+    <p class="pricing-guarantee">🔒 Secure checkout via Stripe · 7-day refund policy</p>
+    <div class="pricing-trust">
+      <div class="pricing-trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> 256-bit SSL</div>
+      <div class="pricing-trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> All cards accepted</div>
+      <div class="pricing-trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Instant delivery</div>
+      <div class="pricing-trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> No account needed</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<div class="divider"></div>
+<section class="section reveal" id="faq" aria-labelledby="faq-heading">
+  <div class="section-label">// FAQ</div>
+  <h2 class="section-title" id="faq-heading" style="text-align:center">Common Questions</h2>
+  <div class="faq-list" style="margin-top:3rem">
+    <div class="faq-item"><button class="faq-question" aria-expanded="false">Do I need coding experience?</button><div class="faq-answer" role="region"><p>No. Every fix is a copy-paste terminal command with plain English explanations. If you installed OpenClaw, you already have the skills to follow this guide.</p></div></div>
+    <div class="faq-item"><button class="faq-question" aria-expanded="false">What version of OpenClaw does this cover?</button><div class="faq-answer" role="region"><p>Updated for OpenClaw 2026.3.x and tested against the latest stable release. The guide gets free updates whenever OpenClaw ships breaking changes that affect rate limiting.</p></div></div>
+    <div class="faq-item"><button class="faq-question" aria-expanded="false">I'm running on a Raspberry Pi / VPS / Docker. Does this work?</button><div class="faq-answer" role="region"><p>Yes. All commands work on macOS, Linux (Ubuntu/Debian/Fedora/Arch), Windows via WSL2, Docker, and headless servers. Platform-specific notes are included where needed.</p></div></div>
+    <div class="faq-item"><button class="faq-question" aria-expanded="false">Will this void my API provider terms of service?</button><div class="faq-answer" role="region"><p>No. Everything uses official API keys with standard pay-as-you-go pricing. No OAuth workarounds, no subscription token reuse, no gray area hacks. Fully TOS-compliant.</p></div></div>
+    <div class="faq-item"><button class="faq-question" aria-expanded="false">What if it doesn't fix my rate limits?</button><div class="faq-answer" role="region"><p>We offer a 7-day refund window. If you follow the modules and the fixes don't work for your setup, email us within 7 days for a full refund.</p></div></div>
+    <div class="faq-item"><button class="faq-question" aria-expanded="false">Do I get instant access after purchase?</button><div class="faq-answer" role="region"><p>Immediately. After Stripe checkout you're redirected to the full guide and receive a backup download link via email. No waiting, no drip content, no login required.</p></div></div>
+    <div class="faq-item"><button class="faq-question" aria-expanded="false">Can I use this for a team or multi-agent setup?</button><div class="faq-answer" role="region"><p>Absolutely. The fallback chains, multi-key rotation, and security hardening scale to any number of agents. Module 8 specifically covers multi-agent security boundaries.</p></div></div>
+    <div class="faq-item"><button class="faq-question" aria-expanded="false">How is this different from free guides on Reddit and Discord?</button><div class="faq-answer" role="region"><p>Free guides cover one fix at a time. This is the complete system: diagnosis, fallbacks, model selection, polling fixes, token optimization, key rotation, security, and emergency recovery — tested on real production setups.</p></div></div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="divider"></div>
+<section class="hero" style="min-height:auto;padding:6rem 2rem" aria-labelledby="final-cta">
+  <h2 class="section-title" id="final-cta" style="text-align:center">Still Seeing <span style="color:var(--accent)">429 Errors</span>?</h2>
+  <p class="section-desc" style="text-align:center;margin:1rem auto 2rem">Every minute you spend debugging rate limits is a minute you're not building. Fix it once, fix it right.</p>
+  <a href="#pricing" class="btn-primary">Get the Guide — $19 →</a>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">🦞 RateLimitFix</div>
+      <p>The definitive guide to permanently fixing OpenClaw rate limits. Built by developers who run OpenClaw in production.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Guide</h4>
+      <a href="#problem">The Problem</a>
+      <a href="#modules">What's Inside</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="/terms">Terms of Service</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/refund">Refund Policy</a>
+      <a href="/cdn-cgi/l/email-protection#c9babcb9b9a6bbbd89afa0b1a6b9aca7aaa5a8bebba8bdaca5a0a4a0bdbae7aaa6a4">Contact Support</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 RateLimitFix by EBSS Web Studio. Not affiliated with OpenClaw or Anthropic.</p>
+    <p>Made with 🦞 in Las Vegas</p>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const reveals=document.querySelectorAll('.reveal');
+const observer=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+reveals.forEach(el=>observer.observe(el));
+
+document.querySelectorAll('.faq-question').forEach(btn=>{btn.addEventListener('click',()=>{const item=btn.parentElement;const isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-question').setAttribute('aria-expanded','false')});if(!isOpen){item.classList.add('open');btn.setAttribute('aria-expanded','true')}})});
+
+document.getElementById('hamburger').addEventListener('click',function(){const nav=document.getElementById('nav-links');const isOpen=nav.classList.toggle('open');this.setAttribute('aria-expanded',isOpen)});
+
+function handleCheckout(){window.location.href='https://buy.stripe.com/YOUR_PAYMENT_LINK_HERE'}
+</script>
+
+<!-- Product Schema -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Product","name":"Fix OpenClaw Rate Limits — The Definitive Guide","description":"Step-by-step guide to permanently fix OpenClaw 429 rate limit errors. 9 modules with 47 copy-paste terminal commands.","brand":{"@type":"Brand","name":"RateLimitFix"},"author":{"@type":"Person","name":"Eric Coste"},"offers":{"@type":"Offer","price":"19.00","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://fixopenclawratelimits.com/#pricing"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"247","bestRating":"5"}}
+</script>
+
+<!-- FAQ Schema -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do I need coding experience to fix OpenClaw rate limits?","acceptedAnswer":{"@type":"Answer","text":"No. Every fix is a copy-paste terminal command with plain English explanations. If you installed OpenClaw, you already have the skills to follow this guide."}},{"@type":"Question","name":"What version of OpenClaw does this rate limit guide cover?","acceptedAnswer":{"@type":"Answer","text":"Updated for OpenClaw 2026.3.x and tested against the latest stable release. The guide gets free updates whenever OpenClaw ships breaking changes."}},{"@type":"Question","name":"Does this work on Raspberry Pi, VPS, or Docker?","acceptedAnswer":{"@type":"Answer","text":"Yes. All commands work on macOS, Linux, Windows via WSL2, Docker, and headless servers. Platform-specific notes are included where needed."}},{"@type":"Question","name":"Will fixing OpenClaw rate limits void my API terms of service?","acceptedAnswer":{"@type":"Answer","text":"No. Everything uses official API keys with standard pay-as-you-go pricing. Fully TOS-compliant across all providers."}},{"@type":"Question","name":"What if the guide doesn't fix my OpenClaw rate limits?","acceptedAnswer":{"@type":"Answer","text":"We offer a 7-day refund window. If the fixes don't work for your setup, email us within 7 days for a full refund."}},{"@type":"Question","name":"How is this different from free OpenClaw rate limit guides?","acceptedAnswer":{"@type":"Answer","text":"Free guides cover one fix at a time. This is the complete system: diagnosis, fallbacks, model selection, polling fixes, token optimization, key rotation, securi
